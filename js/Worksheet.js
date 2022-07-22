@@ -481,6 +481,17 @@ class Worksheet extends HTMLElement {
         const newLeft = currentLeft + event.movementX;
         this.style.setProperty("top", newTop + 'px');
         this.style.setProperty("left", newLeft + 'px');
+
+        // Trigger a custom move event so that
+        // implementors of the Worksheet can react
+        let moveEvent = new CustomEvent('worksheet-moved', {
+            bubbles: true,
+            detail: {
+                movementX: event.movementX,
+                movementY: event.movementY
+            }
+        });
+        this.dispatchEvent(moveEvent);
     }
 
     onNameDblClick(){
@@ -659,7 +670,7 @@ class Worksheet extends HTMLElement {
     onCallStackStep(){
         if(this.callStack.COUNTER > -1){
             // make sure no other tabs are highlighted atm
-            const tabs = this.sheet.shadowRoot.querySelectorAll("row-tab")
+            const tabs = this.sheet.shadowRoot.querySelectorAll("row-tab");
             tabs.forEach((tab) => {
                 tab.removeAttribute("highlighted");
             });
