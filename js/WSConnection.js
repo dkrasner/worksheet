@@ -3,6 +3,7 @@
  * -------------------------------------------
  * Custom Element describing connections between worksheets
  */
+import LeaderLine from 'leader-line';
 
 class WSConnection extends HTMLElement {
     constructor(){

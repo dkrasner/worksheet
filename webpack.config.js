@@ -9,6 +9,17 @@ let config = {
         path: path.resolve(__dirname, 'dist/'),
         filename: 'worksheet.bundle.js'
     },
+    module: {
+        rules: [
+            {
+                test: path.resolve(__dirname, 'node_modules/leader-line/'),
+                use: [{
+                    loader: 'skeleton-loader',
+                    options: {procedure: content => `${content}export default LeaderLine`}
+                }]
+            }
+        ]
+    },
     mode: 'development'
 };
 
